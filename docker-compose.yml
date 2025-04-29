@@ -3,6 +3,8 @@ services:
     build: .
     ports:
       - "8501:8501"
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-11-openjdk
     volumes:
       - .:/app
     restart: unless-stopped
