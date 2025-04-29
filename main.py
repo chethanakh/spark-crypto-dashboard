@@ -21,16 +21,11 @@ df_pd = fetch_crypto_data()
 df_spark = spark.createDataFrame(df_pd)
 df_spark.createOrReplaceTempView("cryptos_temp")
 
-limit = st.select_slider("Select the number of top coins to display:", options=range(1, 21), value=10)
+limit = st.select_slider("Select the number of top coins to display:", options=range(1, df_spark.count() + 1), value=10)
 
-top_coin = spark.sql("""
-    SELECT id, symbol, name, price_change_percentage_24h 
-    FROM cryptos_temp 
-    ORDER BY price_change_percentage_24h DESC 
-    LIMIT 
-"""+str(limit))
-
-top_coin.show()
+top_coin = df_spark.select("id", "symbol", "name", "price_change_percentage_24h") \
+    .orderBy(df_spark["price_change_percentage_24h"].desc()) \
+    .limit(limit)
 
 
 st.write("Top "+str(limit)+" Coin(s) in Last (24h)")
