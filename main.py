@@ -1,5 +1,7 @@
 import streamlit as st
 import requests
+import pandas as pd
+
 
 def fetch_crypto_data():
     url = "https://api.coingecko.com/api/v3/coins/markets"
@@ -12,8 +14,7 @@ def fetch_crypto_data():
     }
     response = requests.get(url, params=params)
     data = response.json()
-    print(data)
-    return data
+    return pd.DataFrame(data)
 
 st.title("Crypto Market Analytics Dashboard")
 
