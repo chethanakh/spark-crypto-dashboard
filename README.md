@@ -1,1 +1,1 @@
-# spark-crypto-dashboard
+# Spark Crypto Dashboard
