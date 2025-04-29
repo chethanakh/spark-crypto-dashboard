@@ -1,7 +1,8 @@
-version: '3.8'
 services:
   crypto-dashboard:
     build: .
+    ports:
+      - "8501:8501"
     volumes:
       - .:/app
     restart: unless-stopped
